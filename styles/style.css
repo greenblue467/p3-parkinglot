@@ -1,0 +1,121 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(20%, #c8b1ff), to(#9bd4ff)) no-repeat fixed;
+  background: linear-gradient(180deg, #c8b1ff 20%, #9bd4ff 100%) no-repeat fixed;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.text {
+  font-size: 2rem;
+  color: #ffffff;
+  text-align: center;
+  position: relative;
+  top: 25vh;
+}
+
+.style {
+  position: relative;
+  cursor: pointer;
+  list-style: none;
+  background-color: #ffffff;
+  border-radius: 1rem;
+  margin: 1rem;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 1rem 1.5rem;
+  line-height: 1.5rem;
+  -webkit-transition: background-color 1s;
+  transition: background-color 1s;
+}
+
+.style:hover {
+  background-color: rgba(150, 150, 150, 0.5);
+}
+
+.style li {
+  color: #4d4d4d;
+}
+
+.style li span {
+  font-weight: bold;
+  color: black;
+}
+
+.style #shield {
+  color: white;
+  position: absolute;
+  right: 2rem;
+  bottom: 2rem;
+  font-size: 1.5rem;
+}
+
+select {
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  font-size: 1.2rem;
+  width: 250px;
+  color: #4d4d4d;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  padding: 1rem;
+  position: relative;
+  left: 50%;
+  -webkit-transform: translateX(-125px);
+          transform: translateX(-125px);
+  cursor: pointer;
+}
+
+.form {
+  position: relative;
+  top: 30vh;
+  width: 100%;
+}
+
+.form span {
+  position: absolute;
+  top: 1.3rem;
+  left: 50%;
+  -webkit-transform: translateX(70px);
+          transform: translateX(70px);
+  width: 0;
+  height: 0;
+  border-width: 0.8rem;
+  border-color: #4d4d4d rgba(255, 255, 255, 0) rgba(255, 255, 255, 0) rgba(255, 255, 255, 0);
+  border-style: solid;
+}
+
+#spot {
+  position: relative;
+  top: 35vh;
+}
+
+@media screen and (min-width: 768px) {
+  #spot {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  #spot {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+#map {
+  position: relative;
+  top: 35vh;
+  text-align: center;
+  margin: 2rem 0;
+}
+/*# sourceMappingURL=style.css.map */

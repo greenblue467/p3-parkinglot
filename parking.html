@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="./styles/style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1 class="text">高雄縣<br />臨時停車處資訊</h1>
+    <div class="form">
+      <span></span>
+      <select name="YourLocation" id="select">
+        <option value="k0">請選擇區域...</option>
+        <option value="大社區">大社區</option>
+        <option value="岡山區">岡山區</option>
+        <option value="路竹區">路竹區</option>
+        <option value="彌陀區">彌陀區</option>
+        <option value="茄萣區">茄萣區</option>
+        <option value="湖內區">湖內區</option>
+        <option value="田寮區">田寮區</option>
+        <option value="阿蓮區">阿蓮區</option>
+        <option value="內門區">內門區</option>
+        <option value="燕巢區">燕巢區</option>
+        <option value="美濃區">美濃區</option>
+        <option value="旗山區">旗山區</option>
+        <option value="杉林區">杉林區</option>
+        <option value="甲仙區">甲仙區</option>
+        <option value="六龜區">六龜區</option>
+        <option value="桃源區">桃源區</option>
+        <option value="茂林區">茂林區</option>
+        <option value="永安區">永安區</option>
+        <option value="仁武區">仁武區</option>
+        <option value="橋頭區">橋頭區</option>
+        <option value="梓官區">梓官區</option>
+      </select>
+    </div>
+    <div id="map"></div>
+    <div id="spot"></div>
+
+    <script
+      type="text/javascript"
+      src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"
+    ></script>
+    <script src="./script.js"></script>
+    <script>
+      const op = function(e) {
+        var name;
+        if (e == "彌陀國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3678.5043994549687!2d120.24547731456482!3d22.783766580929047!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e094c61368b77%3A0xb2d87af00826d921!2z6auY6ZuE5biC56uL5b2M6ZmA5ZyL5rCR5bCP5a24!5e0!3m2!1szh-TW!2stw!4v1580828761034!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "老人文康活動中心") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d3448.178688083633!2d120.35259671429516!3d22.729308658185854!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1z6ICB5Lq65paH5bq35rS75YuV5Lit5b-D!5e0!3m2!1szh-TW!2stw!4v1580829596494!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "岡山國中") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3678.313815773499!2d120.30100371456496!3d22.79083293066919!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e0dd6a718656b%3A0x79a077c7191d49a!2z5bKh5bGx5ZyL5Lit!5e0!3m2!1szh-TW!2stw!4v1580829882702!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "嘉興國中") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3677.6432763189564!2d120.30997671456542!3d22.815678329755016!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e0dbb172eefb3%3A0x10ade52c4fad84a1!2z6auY6ZuE5biC56uL5ZiJ6IiI5ZyL5rCR5Lit5a24!5e0!3m2!1szh-TW!2stw!4v1580830031652!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "前峰國中") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3678.3776317405127!2d120.286981564565!3d22.788467030756262!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e0e82edcb4cff%3A0xc248f04f23d05be1!2z5YmN5bOw5ZyL5Lit!5e0!3m2!1szh-TW!2stw!4v1580830076733!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "岡山國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3678.298197317534!2d120.29160021456497!3d22.79141193064792!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e0c2a4440f0b5%3A0x99cafafdfbc3c743!2z6auY6ZuE5biC56uL5bKh5bGx5ZyL5rCR5bCP5a24!5e0!3m2!1szh-TW!2stw!4v1580876209581!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "前峰國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3678.272221024248!2d120.28090941456496!3d22.792374880612496!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e0c279e752abb%3A0x595a3099d06219b2!2z5YmN5bOw5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580876291704!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "後紅國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3678.2656239404664!2d120.30120311456494!3d22.7926194306035!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e0dd159a27a03%3A0x984fecfd36f3f288!2z6auY6ZuE5biC56uL5b6M57SF5ZyL5rCR5bCP5a24!5e0!3m2!1szh-TW!2stw!4v1580876337003!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "竹圍國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3677.9922858225964!2d120.3007680145652!3d22.802749730230854!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e0dcc12a7912f%3A0x7bc08fa6f507d8e9!2z56u55ZyN5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580876419336!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "壽天國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3678.085139185348!2d120.29005121456508!3d22.799308930357412!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e0c2de8bbc20b%3A0x42ed57c49dde3f24!2z6auY6ZuE5biC56uL5aO95aSp5ZyL5rCR5bCP5a24!5e0!3m2!1szh-TW!2stw!4v1580876448825!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "蔡文國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3676.4048535357488!2d120.25372836456629!3d22.861498228066548!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e0ca1fedb000d%3A0x75fdba60ecda0879!2z5pWZ6IKy6YOo5rC457qM5qCh5ZySLeiUoeaWh-Wci-Wwjw!5e0!3m2!1szh-TW!2stw!4v1580876500985!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "一甲國中") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3676.2186108770557!2d120.27017681456644!3d22.868381427812697!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e0cb82e59b2dd%3A0xf7e81023270f9d59!2z5LiA55Sy5ZyL5Lit!5e0!3m2!1szh-TW!2stw!4v1580876538244!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "路竹高中") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3676.558385618972!2d120.25038191456622!3d22.855822478275854!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e0c9d90e950b3%3A0xc8802464057b79c8!2z6auY6ZuE5biC56uL6Lev56u56auY57Sa5Lit5a24!5e0!3m2!1szh-TW!2stw!4v1580877136431!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "路竹國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3676.544192363454!2d120.25713351456601!3d22.856347228256524!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e0c9972b6b599%3A0xc2aef96fa65cb790!2z6auY6ZuE5biC6Lev56u55Y2A6Lev56u55ZyL5rCR5bCP5a24!5e0!3m2!1szh-TW!2stw!4v1580877172070!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "大社國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4451.479557500662!2d120.26117700946341!3d22.86652637487723!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e0cbafba32765%3A0x126dc5194243692a!2z5aSn56S-5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580877232494!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "竹滬國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3676.3747231190678!2d120.2281333145662!3d22.86261192802545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e0b6b6e3c48ad%3A0x1132f8b9dafabbe3!2z6auY6ZuE5biC6Lev56u55Y2A56u55rus5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580877270810!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "北嶺國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3677.4341172925074!2d120.26706741456553!3d22.823423029469797!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e0c6925c61017%3A0xdf9c5f48f06bbb68!2z5YyX5ba65ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580877316945!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "一甲國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3676.041090915493!2d120.2680468145665!3d22.87494042757071!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e0cb4231557c1%3A0x74bf5add7d13a41!2z5LiA55Sy5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580877346491!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "茄萣國中") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.170164619135!2d120.17890701456707!3d22.907093626383325!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e75482e723ac1%3A0x98fa9ed2b9409299!2z6IyE6JCj5ZyL5Lit!5e0!3m2!1szh-TW!2stw!4v1580877405796!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "茄萣國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.2743714678622!2d120.1797488145669!3d22.90324872652532!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e7535e47a8f69%3A0x56f4037c15770840!2z6auY6ZuE5biC6IyE6JCj5Y2A6IyE6JCj5ZyL5rCR5bCP5a24!5e0!3m2!1szh-TW!2stw!4v1580877442084!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "興達國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3676.02207212276!2d120.19428731456644!3d22.87564302754479!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e0adda0ac01ed%3A0x83bb9959d4c20d31!2z6auY6ZuE5biC6IyE6JCj5Y2A6IiI6YGU5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580877478220!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "成功國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d35871.212177300986!2d120.17658641205736!3d22.899777296334566!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e0ac8f2e5069b%3A0xddd19040f4a90a0e!2z5oiQ5Yqf5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580877511220!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "砂崙國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.003270185544!2d120.18035361456712!3d22.91325022615572!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e7538986ecd27%3A0x78bfe57441aad9cb!2z56CC5bSZ5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580877551552!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "大湖國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d22658.227675708964!2d120.2331884829072!3d22.889493360543092!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e74ac8d75bdcf%3A0x94299e5dc78d6ce5!2z6auY6ZuE5biC5aSn5rmW5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580877619628!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "明宗國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.178965478408!2d120.22030231456701!3d22.90676892639531!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e74c1578b2dc9%3A0x89a7a2eb3f19b254!2z5pWZ6IKy6YOo5rC457qM5qCh5ZySX-mrmOmbhOW4guaYjuWul-Wci-awkeWwj-WtuA!5e0!3m2!1szh-TW!2stw!4v1580877656351!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "高雄市立圖書館田寮分館") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6264.236289157919!2d120.3570330773725!3d22.86970300339084!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e6d4f1f29a2e1%3A0x94fb09333c0e8ca6!2z6auY6ZuE5biC56uL5ZyW5pu46aSo55Sw5a-u5YiG6aSo!5e0!3m2!1szh-TW!2stw!4v1580877753344!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "田寮國中") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3676.359842720576!2d120.35797751456623!3d22.86316192800518!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e6d4c7d9e8e1b%3A0x36a1804f0799ec12!2z55Sw5a-u5ZyL5Lit!5e0!3m2!1szh-TW!2stw!4v1580877782849!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "高雄市田寮區公所") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3676.1778551039974!2d120.35724471456636!3d22.869887427757128!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e6d4f220b123b%3A0x6f3423cf777c2f4c!2z6auY6ZuE5biC55Sw5a-u5Y2A5YWs5omA!5e0!3m2!1szh-TW!2stw!4v1580877805610!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "崇德國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.9520448522053!2d120.37720691456644!3d22.878229827449236!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e6d22a2989097%3A0xcd9988112cfc56d0!2z5bSH5b635ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580877844199!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "新興國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6433.095993510965!2d120.3652042409684!3d22.836071748406603!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e12ea55aeaea7%3A0xf5c09f45e8def925!2z5paw6IiI5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580877884109!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "復安國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3676.734471286225!2d120.32202121456598!3d22.84931132851587!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e0d41b089d245%3A0x85e0926d00a560c!2z5b6p5a6J5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580877933641!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "中路國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.4956825823547!2d120.2964849145667!3d22.895081026827!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e72dfe7eab75b%3A0x300a9549a7968143!2z5Lit6Lev5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580877955612!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "阿蓮國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3492.5770840117934!2d120.32730722871767!3d22.88309606164321!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e72bb65311283%3A0x6aaf4dbebed6a94d!2z5pWZ6IKy6YOo5rC457qM5qCh5ZySX-mrmOmbhOW4gumYv-iTruWci-Wwjw!5e0!3m2!1szh-TW!2stw!4v1580878020819!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "阿蓮區公所") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.8172844866563!2d120.32533352273362!3d22.883207082345727!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e72bbe95928b3%3A0x24668a7c6fcf8e39!2z6auY6ZuE5biC6Zi_6JOu5Y2A5YWs5omA!5e0!3m2!1szh-TW!2stw!4v1580878044833!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "內門國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3674.2950194457494!2d120.45905781456759!3d22.939359625190246!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e6969b485d255%3A0xde1849414ff44c03!2z5YWn6ZaA5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580878138396!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "西門國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4711.789318428843!2d120.42852130724039!3d22.920325809643032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e6c08c95124d3%3A0x6204786123825066!2z6KW_6ZaA5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580878212015!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "溝坪國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3672.8268958748936!2d120.49904731456854!3d22.993392123188915!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e6872417601eb%3A0x1c0bc97f1d10511b!2z5rqd5Z2q5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580878246205!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "景義國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3673.835763090035!2d120.49159441456786!3d22.956274924564177!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e69b21d832617%3A0x907bcbba28d61d11!2z5pmv576p5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580878275965!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "觀亭國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3674.869368310057!2d120.45167291456725!3d22.918188625973237!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e6be5fd514065%3A0x548e3516b3b7cdf0!2z6KeA5Lqt5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580878302861!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "內門國中") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2793.137927600013!2d120.45233105937997!3d22.922232163410687!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e6be6abfbff3d%3A0x363a090c25d5cd46!2z6auY6ZuE5biC56uL5YWn6ZaA5ZyL5rCR5Lit5a24!5e0!3m2!1szh-TW!2stw!4v1580878336697!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "金竹國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3672.3987795113003!2d120.5118265145688!3d23.009125822605284!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e67e5107bc29f%3A0xc41b425435125ead!2z5pWZ6IKy6YOo5rC457qM5qCh5ZySX-mrmOmbhOW4gumHkeerueWci-awkeWwj-WtuA!5e0!3m2!1szh-TW!2stw!4v1580878362563!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "木柵國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3673.3112723327727!2d120.46543321456821!3d22.975578523849236!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e68e500cb2313%3A0x29d8381d47fca2d3!2z5pyo5p-15ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580878427917!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "內門區公所") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3674.2004429463614!2d120.46041731456758!3d22.942844025061234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e696bc76fa61d%3A0x6148f8ae1ce4e1ab!2z6auY6ZuE5biC5YWn6ZaA5Y2A5YWs5omA!5e0!3m2!1szh-TW!2stw!4v1580878453047!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "觀亭里聯合辦公處") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3674.8194680755323!2d120.45408281456723!3d22.92002872590519!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e6be71f35bb57%3A0x8385f4c4dc8a0dd8!2zODQ16auY6ZuE5biC5YWn6ZaA5Y2A5Y2X5bGP6LevOTLomZ8!5e0!3m2!1szh-TW!2stw!4v1580878570791!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "燕巢國中") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3678.4484857665907!2d120.36031771456487!3d22.78583993085288!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e121766695ac3%3A0x618ce4d0babbd871!2z6auY6ZuE5biC56uL54eV5bei5ZyL5rCR5Lit5a24!5e0!3m2!1szh-TW!2stw!4v1580878676694!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "燕巢國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3678.191393699474!2d120.36375731456522!3d22.795370930502358!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e121551eedce3%3A0x7e4db2f157a776b7!2z6auY6ZuE5biC54eV5bei5Y2A54eV5bei5ZyL5rCR5bCP5a24!5e0!3m2!1szh-TW!2stw!4v1580878740433!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "橫山國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2900.441903471624!2d120.37846758069115!3d22.76821944576843!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e118635bf3bd7%3A0x7e1fa166733ac5e6!2z6auY6ZuE5biC54eV5bei5Y2A5qmr5bGx5ZyL5rCR5bCP5a24!5e0!3m2!1szh-TW!2stw!4v1580878777298!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "安招國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3678.309478250342!2d120.33565591456498!3d22.790993730663388!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e0dfa06c40edd%3A0x8961f255a5219c66!2z5a6J5oub5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580878813378!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "金山國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7720.982704890242!2d120.39430681466493!3d22.81161340879403!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e13077663ec73%3A0x597d68156f95dae4!2z6YeR5bGx5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580878870524!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "深水國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3678.6746350382305!2d120.40361131456484!3d22.777452931161257!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e13c4b71b1605%3A0xa5c10ac12ac057ed!2z5pWZ6IKy6YOo5rC457qM5qCh5ZySX-mrmOmbhOW4gua3seawtOWci-awkeWwj-WtuA!5e0!3m2!1szh-TW!2stw!4v1580878895000!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "燕巢區公所") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3678.3840537194324!2d120.35984831456496!3d22.788228930765055!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e1214710df4b1%3A0xc18a5e3d30ca1fac!2z6auY6ZuE5biC54eV5bei5Y2A5YWs5omA!5e0!3m2!1szh-TW!2stw!4v1580878926185!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "燕巢區民眾活動中心") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3678.537889807459!2d120.35994081456491!3d22.78252463097481!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e121972feabf7%3A0xfcb50fb74525d613!2z54eV5bei5Y2A5rCR55y-5rS75YuV5Lit5b-D!5e0!3m2!1szh-TW!2stw!4v1580878989906!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "龍肚國中") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.930576046242!2d120.5686098145666!3d22.879022827419973!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e41a11d66cee9%3A0x2d1a91a1bef2884a!2z6b6N6IKa5ZyL5Lit!5e0!3m2!1szh-TW!2stw!4v1580879019219!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "龍山國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3676.3205027264557!2d120.55366731456638!3d22.864615927951533!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e41b498f73ee1%3A0xf143650ddcfe4a2f!2z5pWZ6IKy6YOo5rC457qM5qCh5ZySLemrmOmbhOW4gueri-m-jeWxseWci-Wwjw!5e0!3m2!1szh-TW!2stw!4v1580879056775!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "吉洋國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3676.407193677888!2d120.51827941456627!3d22.861411728069765!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e6a84e9322f49%3A0xe6b05eec226e1e4f!2z5ZCJ5rSL5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580879082288!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "美濃國中") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.510189823368!2d120.54098911456681!3d22.89454552684685!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e41ee8fcdab0b%3A0x891d92c4bdbba95a!2z576O5r-D5ZyL5Lit!5e0!3m2!1szh-TW!2stw!4v1580879106075!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "廣興國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5696.961065978394!2d120.56573250266302!3d22.918095863078776!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e42317a7f8033%3A0xb361292326ae1856!2z5pWZ6IKy6YOo5rC457qM5qCh5ZySLeW7o-iIiOWci-Wwjw!5e0!3m2!1szh-TW!2stw!4v1580879141832!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "南隆國中") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3676.272257947627!2d120.53237111456617!3d22.866398927885744!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e402cbbcb5c1d%3A0x24b83480dc11077a!2z5Y2X6ZqG5ZyL5Lit!5e0!3m2!1szh-TW!2stw!4v1580879170794!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "龍肚國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3310.9433800798643!2d120.57750263188618!3d22.88538464304337!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e41714dad5de5%3A0xcaa3fd2acc94abb3!2z5pWZ6IKy6YOo5rC457qM5qCh5ZySLem-jeiCmuWci-Wwjw!5e0!3m2!1szh-TW!2stw!4v1580879212357!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "福安國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2336.3581834279908!2d120.51814798298896!3d22.897327118798874!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e6a0e7e6416ad%3A0x7cbc8ced7e88e20c!2z5pWZ6IKy6YOo5rC457qM5qCh5ZySLeemj-WuieWci-Wwjw!5e0!3m2!1szh-TW!2stw!4v1580879245134!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "美濃國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.373635665707!2d120.54106601456681!3d22.89958562666067!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e41c2a00ed52b%3A0xa15c58617a2089ed!2z5pWZ6IKy6YOo5rC457qM5qCh5ZySX-mrmOmbhOW4gue-jua_g-Wci-awkeWwj-WtuA!5e0!3m2!1szh-TW!2stw!4v1580879268179!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "東門國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9137.754371449373!2d120.54931245071302!3d22.899706924901377!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e418cf29c4d69%3A0x5d8920ea85d70bbf!2z5p2x6ZaA5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580879325026!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "梓官國中") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3679.0795301881108!2d120.2613060145645!3d22.762429631713225!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e0edab4d7b5a1%3A0xe41afe867506867e!2z5qKT5a6Y5ZyL5Lit!5e0!3m2!1szh-TW!2stw!4v1580879362149!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "蚵寮國中") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3679.9915774029014!2d120.25638051456392!3d22.72855443295692!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e0f4912efca77%3A0xf0f3cb96240e3bc8!2z6Jq15a-u5ZyL5Lit!5e0!3m2!1szh-TW!2stw!4v1580879387151!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "蚵寮國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3679.8676314291993!2d120.24577121456399!3d22.733160832787902!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e08b564b62bc7%3A0x31a7d2be920c39de!2z6Jq15a-u5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580879413807!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "梓官國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3679.137500261147!2d120.26234631456448!3d22.760277931792338!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e0eda5eddaad3%3A0x9ebf333b006d57b!2z5qKT5a6Y5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580879439238!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "橋頭國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3679.1043008583742!2d120.3036973145645!3d22.761510231747078!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e0e5c516bb6c9%3A0xabb7fa37948b5029!2z6auY6ZuE5biC5qmL6aCt5Y2A5qmL6aCt5ZyL5rCR5bCP5a24!5e0!3m2!1szh-TW!2stw!4v1580879477223!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "仕隆國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3679.390035325775!2d120.30910821456435!3d22.750902232136724!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e0e4e4bc4c39b%3A0x9d5f3d9b310a0d8e!2z5LuV6ZqG5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580879509003!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "甲圍國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3217.427222481024!2d120.29145094317504!3d22.735705720936647!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e0f089e5686fb%3A0xa42b23f0d3bf9a51!2z55Sy5ZyN5ZyL5rCR5bCP5a24!5e0!3m2!1szh-TW!2stw!4v1580879536434!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "仁武高中") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3680.697685645172!2d120.35325241456353!3d22.702295333919697!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e10107627d6e1%3A0x64748623941d0d7e!2z6auY6ZuE5biC56uL5LuB5q2m6auY57Sa5Lit5a24!5e0!3m2!1szh-TW!2stw!4v1580879582385!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "仁武特殊教育學校") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3681.1887093295595!2d120.34445041456307!3d22.684017934589285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e1aada46aa5cf%3A0x73a5e4ef4f8d3365!2z6auY6ZuE5biC56uL5LuB5q2m54m55q6K5pWZ6IKy5a245qCh!5e0!3m2!1szh-TW!2stw!4v1580879605299!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "仁武國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3680.71866417818!2d120.34701481456354!3d22.70151473394833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e100358c48cfb%3A0x87475b10e0bf1377!2z5pWZ6IKy6YOo5rC457qM5qCh5ZySX-mrmOmbhOW4guS7geatpuWci-awkeWwj-WtuA!5e0!3m2!1szh-TW!2stw!4v1580879627958!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "竹後國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3680.4837279567623!2d120.33249491456354!3d22.710255133627918!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e0fe432d56b0d%3A0x7986ac8d76850e14!2z56u55b6M5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580879655281!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "烏林國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3680.818578300414!2d120.3703214145634!3d22.69779663408459!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e1071fe776de3%3A0x6913d928207d73db!2z54OP5p6X5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580879682417!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "八卦國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3681.050123500825!2d120.33109631456335!3d22.68917793430029!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e0550b82be525%3A0xe3c58d2cf31905d9!2z5YWr5Y2m5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580879704264!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "灣內國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3681.2131521273005!2d120.35538541456313!3d22.683107734622627!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e1aa5b30c180d%3A0x447ccf359963bc7f!2z54Gj5YWn5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580879725595!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "永安國中") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2526.7343889052772!2d120.23836842362863!3d22.82336238372641!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xbb0ce3bacffdd698!2z5rC45a6J5ZyL5Lit!5e0!3m2!1szh-TW!2stw!4v1580879770166!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "維新國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2555.7671105326435!2d120.24489142548211!3d22.804748788506032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e0bfec9544e11%3A0x6d3e60d9f940ad4b!2z57at5paw5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580879798574!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "茂林國中") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.770084572606!2d120.66174901456655!3d22.884950127201186!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e442b18fa7793%3A0xef937c2091e361ee!2z6IyC5p6X5ZyL5Lit!5e0!3m2!1szh-TW!2stw!4v1580879856502!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "茂林區公所") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.7364557947935!2d120.66107731456667!3d22.886191927155295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e442b0f9847a3%3A0x1d6d17db2f21fe!2z6IyC5p6X5Y2A5YWs5omA!5e0!3m2!1szh-TW!2stw!4v1580879881337!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "茂林國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.7414793690464!2d120.66228811456654!3d22.88600642716219!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e4580b4371b5d%3A0x726572014ff62195!2z5biC56uL6IyC5p6X5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580879907788!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "多納國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.089967551729!2d120.7139455145671!3d22.91005222627401!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e4f7e955b162b%3A0x3bbebd69a02274eb!2z5aSa57SN5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580879934809!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "桃源里綜合運動場") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3668.3040874216226!2d120.76241971457148!3d23.159099117024045!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346ef8fdc5017aa7%3A0xf97c871b24fc3c50!2z5qGD5rqQ5Y2A57ac5ZCI6YGL5YuV5aC0!5e0!3m2!1szh-TW!2stw!4v1580879967899!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "桃源國中") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d17560.43119000398!2d120.77892830012686!3d23.176693762903888!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346ef9402a5845e9%3A0x1385f609c479c247!2z6auY6ZuE5biC56uL5qGD5rqQ5ZyL5Lit!5e0!3m2!1szh-TW!2stw!4v1580880030508!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "桃源國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3668.2707159826164!2d120.7637764145715!3d23.16031761697858!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346ef8fd8da33a9d%3A0x2422ebdb8013271a!2z5qGD5rqQ5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580880195240!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "興中國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13869.584849154055!2d120.71499899626289!3d23.127316129310877!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x521b349b554c40af!2z6IiI5Lit5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580880229995!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "樟山國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3665.7290092015023!2d120.8175074145731!3d23.252946313514503!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346efc8664c4994b%3A0x2c90ffc7cb9a1bd2!2z5biC56uL5qif5bGx5ZyL5bCP5ZyW5pu46aSo!5e0!3m2!1szh-TW!2stw!4v1580880279748!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "復興里運動球場") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6415.465102886764!2d120.76343302060198!3d23.15981008768793!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xf97c871b24fc3c50!2z5qGD5rqQ5Y2A57ac5ZCI6YGL5YuV5aC0!5e0!3m2!1szh-TW!2stw!4v1580880313543!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "旗山國中") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.8647195432854!2d120.47890391456652!3d22.881455227330097!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e6bab2a02a813%3A0x93544c13f33b9a7b!2z5biC56uL5peX5bGx5ZyL5Lit!5e0!3m2!1szh-TW!2stw!4v1580880379132!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "嶺口國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3678.710614273911!2d120.44698651456473!3d22.776118331210203!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e1412f170c9d3%3A0x386600c466a95760!2z5ba65Y-j5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580880398961!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "圓富國中") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3674.5918547742463!2d120.4988719145674!3d22.928420325594942!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e69927128a597%3A0xdf2d1e01ddedf2e7!2z6auY6ZuE5biC56uL5ZyT5a-M5ZyL5rCR5Lit5a24!5e0!3m2!1szh-TW!2stw!4v1580880423796!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "旗山國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.680229756404!2d120.4784353145668!3d22.888268027078713!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e6bad40f2c9dd%3A0xd80010f446e8b62d!2z6auY6ZuE5biC5peX5bGx5Y2A5peX5bGx5ZyL5rCR5bCP5a24!5e0!3m2!1szh-TW!2stw!4v1580880447880!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "溪洲國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3676.790825759422!2d120.46314231456604!3d22.847227128592817!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e6b30d8548e53%3A0xe84d5ce298e434d6!2z5rqq5rSy5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580880469821!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "鼓山國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3682.807912878191!2d120.26910491456204!3d22.623647136797246!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e040a60711385%3A0x42ef6d4b1c3be93d!2z6auY6ZuE5biC56uL6byT5bGx5ZyL5rCR5bCP5a24!5e0!3m2!1szh-TW!2stw!4v1580880490966!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "圓潭國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3674.457402330867!2d120.50156731456747!3d22.933375925411593!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e6994a30c6bd9%3A0x4a40b9781a016004!2z5ZyT5r2t5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580880513537!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "旗尾國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.85164708959!2d120.48977221456659!3d22.88193802731232!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e6a50ca8f0189%3A0xb6df47813366315e!2z5peX5bC-5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580880535370!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "大洲國中") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3677.103961100496!2d120.4583083145658!3d22.83564292901963!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e14ca201ea659%3A0xf7c60fa92312b579!2z6auY6ZuE5biC5peX5bGx5Y2A5aSn5rSy5ZyL5rCR5Lit5a24!5e0!3m2!1szh-TW!2stw!4v1580880585609!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "鼓山公園") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.651468953375!2d120.47366181456685!3d22.889329927039466!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e6bae0be5bc91%3A0x97056213845a62e1!2zODQy6auY6ZuE5biC5peX5bGx5Y2A6byT5bGx5YWs5ZyS!5e0!3m2!1szh-TW!2stw!4v1580880609266!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "集來國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3672.0325071627967!2d120.55935941456899!3d23.022578622105954!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e5d101dbbd78d%3A0xe96f07ceff94c7d9!2z6ZuG5L6G5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580880636768!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "上平國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3673.281469952167!2d120.54191531456823!3d22.976674923808588!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e429792766c39%3A0x2c83fb6e9b7eceb9!2z5pWZ6IKy6YOo5rC457qM5qCh5ZySLeS4iuW5s-Wci-Wwjw!5e0!3m2!1szh-TW!2stw!4v1580880660660!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "杉林國中") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3673.497365432976!2d120.53884331456807!3d22.96873122410283!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e429728a5b24f%3A0xa57cc0eb9da3fccf!2z5pWZ6IKy6YOo5rC457qM5qCh5ZySLeadieael-Wci-S4rQ!5e0!3m2!1szh-TW!2stw!4v1580880680063!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "杉林國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3672.700732139827!2d120.54568921456853!3d22.998029823016857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e5d4bd2df9f21%3A0x6e9913d54acd0698!2z5pWZ6IKy6YOo5rC457qM5qCh5ZySLeadieael-Wci-Wwjw!5e0!3m2!1szh-TW!2stw!4v1580880704075!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "民族大愛國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3673.603024844887!2d120.53731311456811!3d22.96484262424692!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e6bad40f2c9dd%3A0x6e5194021d0b8831!2z5pWZ6IKy6YOo5rC457qM5qCh5ZySLeawkeaXj-Wkp-aEm-Wci-awkeWwj-WtuA!5e0!3m2!1szh-TW!2stw!4v1580880729853!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "新庄國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3616.576520655008!2d120.55814255058392!3d22.989926293649308!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e42cd1c1adf31%3A0xf17fd92d326743be!2z5pWZ6IKy6YOo5rC457qM5qCh5ZySLemrmOmbhOW4guaWsOW6hOWci-Wwjw!5e0!3m2!1szh-TW!2stw!4v1580880762489!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "寶隆國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.3029104079433!2d120.55328891456965!3d23.04935382111151!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e5dbc16e9d3e5%3A0xc2e52614bfa078!2z5a-26ZqG5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580880801383!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "甲仙國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3670.4293455343627!2d120.58680821457007!3d23.081373819920785!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e5e90855a1339%3A0x6a19a0b4a196a4a7!2z55Sy5LuZ5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580880841739!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "甲仙國中") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3670.4390532558286!2d120.58977391457005!3d23.081018219933966!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e5e97462f92c3%3A0x8e7eede7a80547d!2z55Sy5LuZ5ZyL5Lit!5e0!3m2!1szh-TW!2stw!4v1580880863173!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "小林國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2759.5862167218743!2d120.63121089887383!3d23.148706352720623!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346ef61d27d152c3%3A0x51129e135c26cb9d!2z5bCP5p6X5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580880894299!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "六龜高中") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3672.8280981734974!2d120.63325331456848!3d22.993347923190452!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e5b424c79d2df%3A0x477ab9c6fa6ec7d1!2z6auY6ZuE5biC5YWt6b6c5Y2A5YWt6b6c6auY57Sa5Lit5a24!5e0!3m2!1szh-TW!2stw!4v1580880932756!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "新威國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.4074673115424!2d120.62492071456687!3d22.89833702670682!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e440449789bbd%3A0x41650c1b29689a55!2z5paw5aiB5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580880953306!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "新發國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2562.0784345168336!2d120.66212105378403!3d23.032508261208726!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e5bb598480d73%3A0x1d293a3e27cde7ae!2z6auY6ZuE5biC5YWt6b6c5Y2A5paw55m85ZyL5rCR5bCP5a24!5e0!3m2!1szh-TW!2stw!4v1580880982242!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "寶來國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3669.678463820938!2d120.69867581457049!3d23.108863418897272!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e5822b7d5216b%3A0x22f04a3068a5b563!2z6auY6ZuE5biC56uL5a-25L6G5ZyL5rCR5bCP5a24!5e0!3m2!1szh-TW!2stw!4v1580881012146!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "龍興國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3672.8199078110197!2d120.64323731456857!3d22.9936490231794!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e5b3fd68d4a99%3A0x3697dea3b73f7f44!2z6auY6ZuE5biC5YWt6b6c5Y2A6b6N6IiI5ZyL5rCR5bCP5a24!5e0!3m2!1szh-TW!2stw!4v1580881052858!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "寶來國中") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3669.6627868706723!2d120.70141581457048!3d23.109437018875894!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e582286910edd%3A0xdc13765efa9f7f12!2z5a-25L6G5ZyL5Lit!5e0!3m2!1szh-TW!2stw!4v1580881074722!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "六龜國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3672.7409149778246!2d120.63234241456861!3d22.996552823071674!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e5b682d54fe87%3A0x6b6659ff49b53704!2z6auY6ZuE5biC5YWt6b6c5Y2A5YWt6b6c5ZyL5rCR5bCP5a24!5e0!3m2!1szh-TW!2stw!4v1580881095292!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "荖濃國小") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3670.649899227242!2d120.67090411456982!3d23.073293520221384!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e5998a56bb6c7%3A0x254ac819fbae4170!2z6I2W5r-D5ZyL5bCP!5e0!3m2!1szh-TW!2stw!4v1580881115408!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        } else if (e == "六龜區公所") {
+          name = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3672.689463095343!2d120.6305195145686!3d22.998444023001547!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e5b68686082db%3A0xc569b09f7ae9e9a9!2z6auY6ZuE5biC5YWt6b6c5Y2A5YWs5omA!5e0!3m2!1szh-TW!2stw!4v1580881136599!5m2!1szh-TW!2stw" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>`;
+        }
+        const map = document.getElementById("map");
+        map.innerHTML = name;
+      };
+    </script>
+  </body>
+</html>
