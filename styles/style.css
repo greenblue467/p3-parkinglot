@@ -68,6 +68,7 @@ select {
   -webkit-transform: translateX(-125px);
           transform: translateX(-125px);
   cursor: pointer;
+  font-family: arial, sans-serif, LiHei Pro, Microsoft JhengHei;
 }
 
 .form {
