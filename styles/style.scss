@@ -36,30 +36,40 @@ body {
 
 .style {
   position: relative;
+  width: 300px;
+  height: 150px;
   cursor: pointer;
   list-style: none;
   background-color: #ffffff;
   border-radius: 1rem;
-  margin: 1rem;
+  margin: 1rem auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   @include paddings(1rem, 1.5rem);
   line-height: 1.5rem;
-  transition: background-color 1s;
-  &:hover {
-    background-color: rgba(150, 150, 150, 0.5);
-  }
-  li {
-    color: lighten(black, 30%);
-    span {
-      font-weight: bold;
-      color: black;
-    }
+  overflow: hidden;
+  @include pad {
+    width: 90%;
   }
   #shield {
+    font-weight: bold;
     color: white;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
     position: absolute;
-    right: 2rem;
-    bottom: 2rem;
+    top: 180px;
+    left: 0;
     font-size: 1.5rem;
+    line-height: 150px;
+    text-align: center;
+    transition: top 0.5s;
+  }
+  &:hover {
+    #shield {
+      top: 0;
+    }
   }
 }
 
